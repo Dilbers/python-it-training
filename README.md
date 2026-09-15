@@ -33,7 +33,6 @@ notes and code examples from my IT training.
     - [ ] Lambda Syntax
     - [ ] Lambda with Parameters
     - [ ] Lambda with Functions
-    - [ ] Lambda Exercises
 
   - Built-in Higher-Order Functions
     - [ ] `map()`
