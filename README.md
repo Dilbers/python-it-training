@@ -20,6 +20,29 @@ notes and code examples from my IT training.
   - [ ] List Comprehensions
   - [ ] Dictionary Comprehensions
 - Week 2: Functions and Data Processing Structures
+  - Functions
+    - [ ] Function Definition
+    - [ ] Function Calling
+    - [ ] Function Parameters
+    - [ ] Calling Functions from Other Functions
+    - [ ] Return Statement
+    - [ ] Recursive Functions
+
+  - Lambda Functions
+    - [ ] Anonymous Functions
+    - [ ] Lambda Syntax
+    - [ ] Lambda with Parameters
+    - [ ] Lambda with Functions
+    - [ ] Lambda Exercises
+
+  - Built-in Higher-Order Functions
+    - [ ] `map()`
+    - [ ] `map()` with Lambda
+    - [ ] `map()` Exercises
+    - [ ] `filter()`
+    - [ ] `filter()` with Lambda
+    - [ ] `reduce()`
+    - [ ] `reduce()` with Lambda
 - Week 3
 - Week 4
 - Week 5
