@@ -11,8 +11,15 @@ notes and code examples from my IT training.
 
 ## 🐍 Python
 
-- Week 1
-- Week 2
+- Week 1: Basic Data Structures
+  - [ ] Lists
+  - [ ] Tuples
+  - [ ] Dictionaries
+  - [ ] Sets
+  - [ ] Nested Data Structures
+  - [ ] List Comprehensions
+  - [ ] Dictionary Comprehensions
+- Week 2: Functions and Data Processing Structures
 - Week 3
 - Week 4
 - Week 5
