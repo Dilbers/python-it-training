@@ -2,20 +2,114 @@ __contributor__ = "Muhammed Mahir Varlioglu"
 __email__ = "mmahirv@hotmail.com"
 
 movie_list_onshow = [
-        {
-        'The Matrix': {
-            'genre': 'Action',
-            'show_times': {
+    {
+        'title': 'The Matrix',
+        'genre': 'Action',
+        'show_times': [
+            {
                 'start_time': '09:00',
                 'ticket_price': 15.00,
                 'seats_number': 100
             },
-            'show_times': {
+            {
                 'start_time': '12:00',
                 'ticket_price': 15.00,
                 'seats_number': 100
             },
-        },
+            {
+                'start_time': '18:00',
+                'ticket_price': 18.00,
+                'seats_number': 80
+            }
+        ]
+    },
+
+    {
+        'title': 'Inception',
+        'genre': 'Sci-Fi',
+        'show_times': [
+            {
+                'start_time': '10:00',
+                'ticket_price': 14.00,
+                'seats_number': 120
+            },
+            {
+                'start_time': '15:00',
+                'ticket_price': 16.00,
+                'seats_number': 90
+            },
+            {
+                'start_time': '20:00',
+                'ticket_price': 18.00,
+                'seats_number': 50
+            }
+        ]
+    },
+
+    {
+        'title': 'The Dark Knight',
+        'genre': 'Action',
+        'show_times': [
+            {
+                'start_time': '11:00',
+                'ticket_price': 13.00,
+                'seats_number': 100
+            },
+            {
+                'start_time': '17:00',
+                'ticket_price': 15.00,
+                'seats_number': 75
+            },
+            {
+                'start_time': '21:00',
+                'ticket_price': 20.00,
+                'seats_number': 40
+            }
+        ]
+    },
+
+    {
+        'title': 'Pulp Fiction',
+        'genre': 'Crime',
+        'show_times': [
+            {
+                'start_time': '13:00',
+                'ticket_price': 14.00,
+                'seats_number': 110
+            },
+            {
+                'start_time': '16:30',
+                'ticket_price': 15.00,
+                'seats_number': 85
+            },
+            {
+                'start_time': '21:30',
+                'ticket_price': 18.00,
+                'seats_number': 45
+            }
+        ]
+    },
+
+    {
+        'title': 'Gladiator',
+        'genre': 'Drama',
+        'show_times': [
+            {
+                'start_time': '10:30',
+                'ticket_price': 13.00,
+                'seats_number': 100
+            },
+            {
+                'start_time': '15:30',
+                'ticket_price': 15.00,
+                'seats_number': 80
+            },
+            {
+                'start_time': '20:30',
+                'ticket_price': 19.00,
+                'seats_number': 50
+            }
+        ]
     }
 ]
 
