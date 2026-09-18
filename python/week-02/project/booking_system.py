@@ -34,9 +34,10 @@ snack_bar_list = {
 }
 
 order_information = {
+    'customer_name': '',
     'movie_names': '',
     'movie_show_time': '',
-    'ticket_quantity': 1,
+    'ticket_quantity': 0,
     'snacks': [],
     'cost_of_snacks': 0.00,
     'cost_of_tickets': 0.00,
@@ -45,6 +46,7 @@ order_information = {
     'total_amount': 0.00,
 }
 
+past_customer_orders = []
 
 #filter func ile yapila bilir
 #Someone searches for a genre we don't currently have any movies in — this should just show "no results," not break the program
@@ -141,19 +143,19 @@ def take_snack_order():
 
 
 #Instead, the program should show a short, clear message explaining what went wrong.
-
-user_selection = input("""
-    Welcome to the Movie Booking System!
-    Please select an option:
-        1. Filter movies by genre
-        2. Filter movies by ticket price
-        3. Book a ticket
-        4. Order snacks
-        5. Check out order
-        6. Exit
-""")
+print('Welcome to the Movie Booking System!')
 
 while True:
+    user_selection = input("""
+        Please select an option:
+            1. Filter movies by genre
+            2. Filter movies by ticket price
+            3. Book a ticket
+            4. Order snacks
+            5. Check out order
+            6. Exit
+    """)
+
     if(user_selection == '1'):
         genre = input('Enter a genre to filter movies: ')
         filtered_movies = filter_movies_by_genre(genre, movie_list_onshow)
