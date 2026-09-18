@@ -142,14 +142,12 @@ order_information = {
 
 past_customer_orders = []
 
-#filter func ile yapila bilir
 #Someone searches for a genre we don't currently have any movies in — this should just show "no results," not break the program
 #Instead, the program should show a short, clear message explaining what went wrong.
 def filter_movies_by_genre(genre):
 
     return 0
 
-#filter func ile yapila bilir
 #Instead, the program should show a short, clear message explaining what went wrong.
 def filter_movies_by_ticket_price(ticket_price):
 
@@ -168,8 +166,9 @@ def calculate_total_cost_of_fees(cost_of_tickets, cost_of_snacks):
     return 0
 
 def calculate_total_cost_of_booking(cost_of_tickets, cost_of_snacks, cost_of_fees):
-
-    return 0
+    subtotal = cost_of_tickets + cost_of_snacks
+    total = subtotal + cost_of_fees
+    return total
 
 #Someone tries to book more seats than are actually available.
 #Instead, the program should show a short, clear message explaining what went wrong.
@@ -181,36 +180,100 @@ def booking_ticket():
     movie_name = input('Enter the movie name to book a ticket: ')
 
     #Someone enters a customer or movie that doesn't exist in the system.
-    if(movie_name not in [movie for movie_dict in movie_list_onshow for movie in movie_dict]):
+    if(movie_name not in [movie['title'] for movie in movie_list_onshow]):
         print(f'Movie "{movie_name}" is not available in the movie list.')
         return 0
 
     show_time = input('Enter the show time (HH:MM) to book a ticket: ')
 
+    movie = next(m for m in movie_list_onshow if m['title'] == movie_name)
+
     #someone enters a show time that doesn't exist for the selected movie.
-    if show_time not in [show_time for movie_dict in movie_list_onshow for movie in movie_dict[movie_name]['show_times']]:
+    if show_time not in [st['start_time'] for st in movie['show_times']]:
         print(f'Show time "{show_time}" is not available for movie "{movie_name}".')
         return 0
-    
-    ticket_quantity = int(input('Enter the number of tickets to book: '))
 
-    if ticket_quantity > movie_list_onshow[0][movie_name]['show_times'][show_time]['seats_number']:
-        print(f'Cannot book {ticket_quantity} tickets. Only {movie_list_onshow[0][movie_name]["show_times"][show_time]["seats_number"]} seats are available.')
+    while True:
+        quantity_input = input('Enter the number of tickets to book: ')
+        try:
+            ticket_quantity = int(quantity_input)
+            break
+        except ValueError:
+            print(f'"{quantity_input}" is not a valid number. Please enter a whole number.')
+
+    showtime_info = next(st for st in movie['show_times'] if st['start_time'] == show_time)
+
+    if ticket_quantity > showtime_info['seats_number']:
+        print(f'Cannot book {ticket_quantity} tickets. Only {showtime_info["seats_number"]} seats are available.')
         return 0
 
     update_movie_list(movie_name, show_time, ticket_quantity)
-    
+
     return 0
 
 #Someone tries to check out an order that has no movie selected yet.
 #Instead, the program should show a short, clear message explaining what went wrong.
 def check_out_order(order_information):
+    if not order_information['movie_names']:
+        print("No movie has been selected for this order yet. Please book a ticket first.")
+        return None
 
-    return 0
+    if order_information['ticket_quantity'] <= 0:
+        print("There are no tickets in this order. Please book a ticket first.")
+        return None
+
+    subtotal = order_information['cost_of_tickets'] + order_information['cost_of_snacks']
+    order_information['subtotal'] = subtotal
+
+    fees = calculate_total_cost_of_fees(
+        order_information['cost_of_tickets'],
+        order_information['cost_of_snacks']
+    )
+    order_information['cost_of_fees'] = fees
+
+    total = calculate_total_cost_of_booking(
+        order_information['cost_of_tickets'],
+        order_information['cost_of_snacks'],
+        fees
+    )
+    order_information['total_amount'] = total
+
+    ticket_unit_price = order_information['cost_of_tickets'] / order_information['ticket_quantity']
+
+    print("\n========== RECEIPT ==========")
+    print(f"Customer: {order_information['customer_name']}")
+    print(f"Movie:    {order_information['movie_names']} ({order_information['movie_show_time']})")
+    print("-" * 30)
+
+    ticket_line = f"Tickets ({order_information['ticket_quantity']} x ${ticket_unit_price:.2f})"
+    print(f"{ticket_line:<20}${order_information['cost_of_tickets']:>7.2f}")
+
+    for snack in order_information['snacks']:
+        line = f"{snack['snack_name']} x{snack['snack_quantity']}"
+        price = snack_bar_list[snack['snack_name']] * snack['snack_quantity']
+        print(f"{line:<20}${price:>7.2f}")
+
+    print("-" * 30)
+    print(f"{'Subtotal:':<20}${subtotal:>7.2f}")
+    print(f"{'Total with fees:':<24}${total:>7.2f}")
+    print("=" * 30)
+
+    update_movie_list(
+        order_information['movie_names'],
+        order_information['movie_show_time'],
+        order_information['ticket_quantity']
+    )
+
+    past_customer_orders.append(order_information.copy())
+
+    print("\nPayment complete, enjoy the show!")
+    return order_information
 
 def print_snack_bar_list(snack_bar_list):
-
-    return 0
+    print("\n===== SNACK BAR MENU =====")
+    for snack_name, price in snack_bar_list.items():
+        print(f"{snack_name:<20}${price:>6.2f}")
+    print("===========================")
 
 
 def take_snack_order():
@@ -222,21 +285,33 @@ def take_snack_order():
 
         if snack_name.lower() == 'done':
             break
-        if snack_name.lower() not in snack_bar_list:
+
+        matched_key = None
+        for key in snack_bar_list:
+            if key.lower() == snack_name.lower():
+                matched_key = key
+                break
+
+        if matched_key is None:
             print(f'Snack "{snack_name}" is not available in the snack bar list.')
             continue
 
-        snack_quantity = int(input('Enter the quantity of the snack to order: '))
+        while True:
+            quantity_input = input('Enter the quantity of the snack to order: ')
+            try:
+                snack_quantity = int(quantity_input)
+                break
+            except ValueError:
+                print(f'"{quantity_input}" is not a valid number. Please enter a whole number.')
 
         order_snacks.append({
-            'snack_name': snack_name, 
+            'snack_name': matched_key,
             'snack_quantity': snack_quantity
             })
 
     return order_snacks
 
 
-#Instead, the program should show a short, clear message explaining what went wrong.
 print('Welcome to the Movie Booking System!')
 
 while True:
@@ -252,12 +327,12 @@ while True:
 
     if(user_selection == '1'):
         genre = input('Enter a genre to filter movies: ')
-        filtered_movies = filter_movies_by_genre(genre, movie_list_onshow)
+        filtered_movies = filter_movies_by_genre(genre)
 
         print(f'Filtered movies by genre "{genre}": {filtered_movies}')
     elif(user_selection == '2'):
         ticket_price = float(input('Enter a ticket price to filter movies: '))
-        filtered_movies = filter_movies_by_ticket_price(ticket_price, movie_list_onshow)
+        filtered_movies = filter_movies_by_ticket_price(ticket_price)
 
         print(f'Filtered movies by ticket price "{ticket_price}": {filtered_movies}')
     elif(user_selection == '3'):
@@ -273,4 +348,4 @@ while True:
         check_out_order(order_information)
     elif(user_selection == '6'):
         print('Exiting the Movie Booking System. Goodbye!')
-        break    
+        break
