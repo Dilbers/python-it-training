@@ -147,23 +147,55 @@ past_customer_orders = []
 def filter_movies_by_genre(genre):
 
     return 0
-
+#Created By @NkSecurity Start ====>.
 #Instead, the program should show a short, clear message explaining what went wrong.
 def filter_movies_by_ticket_price(ticket_price):
+    filtered_movies = []
+    for movie in movie_list_onshow:
+            for show_time in movie['show_times']:
+                if show_time['ticket_price'] <= ticket_price:
+                    filtered_movies.append({
+                        "title":movie['title'],
+                        "genre":movie['genre'],
+                        "start_time":show_time['start_time'],
+                        "ticket_price":show_time['ticket_price']
+                    })
+                    break
+    if not filtered_movies:
+        print(f'No movies found with ticket price of €{ticket_price} or less.')
 
-    return 0
+    return filtered_movies
 
 def calculate_total_cost_of_tickets(ticket_quantity, ticket_price):
+    total_cost = ticket_quantity * ticket_price
 
-    return 0
+    return total_cost
 
 def calculate_total_cost_of_snacks(snack_list):
+    total_snack_cost = 0.0
+    for snack in snack_list:
+        snack_name = snack["snack_name"]
+        snack_quantity = snack["snack_quantity"]
+        snack_unit_price = snack_bar_list['snack_name']
+        snack_total = snack_quantity * snack_unit_price
+        total_snack_cost += snack_total
+    
+    return total_snack_cost
 
-    return 0
+def calculate_total_cost_of_fees(cost_of_tickets, cost_of_snacks, fee_rates = [0.05, 0.02, 0.01]):
+    subtotal = cost_of_tickets + cost_of_snacks
+    def apply_fees_recursive(current_total, remaining_fees):
+        if not remaining_fees:
+            return current_total
+        current_fee_rate = remaining_fees[0]
+        new_total = current_total * (1+ current_fee_rate)
 
-def calculate_total_cost_of_fees(cost_of_tickets, cost_of_snacks):
+    return apply_fees_recursive(new_total, remaining_fees[1:])
+    final_total = apply_fees_recursive(subtotal, fee_rates)
+    total_fees = final_total - subtotal
+    return total_fees
 
-    return 0
+#Created By @NkSecurity Finis ====<.
 
 def calculate_total_cost_of_booking(cost_of_tickets, cost_of_snacks, cost_of_fees):
     subtotal = cost_of_tickets + cost_of_snacks
