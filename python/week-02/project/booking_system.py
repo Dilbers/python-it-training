@@ -176,7 +176,7 @@ def calculate_total_cost_of_snacks(snack_list):
     for snack in snack_list:
         snack_name = snack["snack_name"]
         snack_quantity = snack["snack_quantity"]
-        snack_unit_price = snack_bar_list['snack_name']
+        snack_unit_price = snack_bar_list[snack_name]
         snack_total = snack_quantity * snack_unit_price
         total_snack_cost += snack_total
     
@@ -189,8 +189,8 @@ def calculate_total_cost_of_fees(cost_of_tickets, cost_of_snacks, fee_rates = [0
             return current_total
         current_fee_rate = remaining_fees[0]
         new_total = current_total * (1+ current_fee_rate)
-
-    return apply_fees_recursive(new_total, remaining_fees[1:])
+        return apply_fees_recursive(new_total, remaining_fees[1:])
+    
     final_total = apply_fees_recursive(subtotal, fee_rates)
     total_fees = final_total - subtotal
     return total_fees
