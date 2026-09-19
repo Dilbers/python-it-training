@@ -147,7 +147,7 @@ past_customer_orders = []
 def filter_movies_by_genre(genre):
 
     return 0
-#Created By @NkSecurity Start ====>.
+
 #Instead, the program should show a short, clear message explaining what went wrong.
 def filter_movies_by_ticket_price(ticket_price):
     filtered_movies = []
@@ -195,8 +195,6 @@ def calculate_total_cost_of_fees(cost_of_tickets, cost_of_snacks, fee_rates = [0
     total_fees = final_total - subtotal
     return total_fees
 
-#Created By @NkSecurity Finis ====<.
-
 def calculate_total_cost_of_booking(cost_of_tickets, cost_of_snacks, cost_of_fees):
     subtotal = cost_of_tickets + cost_of_snacks
     total = subtotal + cost_of_fees
@@ -207,11 +205,11 @@ def calculate_total_cost_of_booking(cost_of_tickets, cost_of_snacks, cost_of_fee
 def update_movie_list(movie_name, show_time, ticket_quantity):
 
     return 0
+
 def booking_ticket():
     customer_name = input('Enter the customer name: ')
     order_information['customer_name'] = customer_name
-    
-def booking_ticket():
+
     movie_name = input('Enter the movie name to book a ticket: ')
 
     #Someone enters a customer or movie that doesn't exist in the system.
