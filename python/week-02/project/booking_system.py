@@ -207,7 +207,10 @@ def calculate_total_cost_of_booking(cost_of_tickets, cost_of_snacks, cost_of_fee
 def update_movie_list(movie_name, show_time, ticket_quantity):
 
     return 0
-
+def booking_ticket():
+    customer_name = input('Enter the customer name: ')
+    order_information['customer_name'] = customer_name
+    
 def booking_ticket():
     movie_name = input('Enter the movie name to book a ticket: ')
 
