@@ -2,9 +2,7 @@ import csv
 import json
 import os
 
-
 CSV_FIELDS = ["title", "author", "year", "genre"]
-
 
 def load_library(filepath):
     """Load books from a JSON file."""
